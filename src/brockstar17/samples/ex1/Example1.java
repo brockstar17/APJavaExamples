@@ -1,4 +1,4 @@
-package brockstar17.samples;
+package brockstar17.samples.ex1;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
