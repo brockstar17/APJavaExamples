@@ -97,8 +97,8 @@ public class PaintBoard extends JPanel
 		int w = 110;
 		int h = 130;
 
-		int x = (int) ((lvl / 2) - (w / 2));
-		int y = (int) ((thl / 2) - (h / 2));
+		int x = (lvl / 2) - (w / 2);
+		int y = (thl / 2) - (h / 2);
 
 		switch (space) {
 		case 0:
