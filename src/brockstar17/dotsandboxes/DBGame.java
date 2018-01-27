@@ -1,6 +1,8 @@
-package brockstar17.dotsandboxes.multiplayer;
+package brockstar17.dotsandboxes;
 
 import javax.swing.JOptionPane;
+
+import brockstar17.dotsandboxes.utils.IPFrame;
 
 public class DBGame
 {
@@ -21,10 +23,12 @@ public class DBGame
 		boolean startServer = JOptionPane.showConfirmDialog(null, "Click yes to start the Server. Click no to join a server") == 0 ? true : false;
 
 		if (startServer) {
-			System.out.println("Starting server.");
+
+			new DBServer(22222);
 		}
 		else {
-			System.out.println("Constructing Client");
+			new IPFrame();
+
 		}
 	}
 

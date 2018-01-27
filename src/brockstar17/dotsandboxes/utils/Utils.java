@@ -1,4 +1,6 @@
-package brockstar17.dotsandboxes.multiplayer;
+package brockstar17.dotsandboxes.utils;
+
+import brockstar17.dotsandboxes.DBGame;
 
 public class Utils
 {

@@ -1,9 +1,14 @@
-package brockstar17.dotsandboxes.multiplayer;
+package brockstar17.dotsandboxes.utils;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
-public class Box
+import brockstar17.dotsandboxes.DBGame;
+
+public class Box implements Cerealizer
 {
 
 	/**
@@ -77,25 +82,32 @@ public class Box
 		}
 	}
 
-	public void updateShareLine(String ord, Color c) {
+	public void updateShareLine(String ord, String player, Color c) {
+		// System.out.println("Box " + boxId);
+
 		switch (ord) {
 		case "N":
 			lines[2].setColor(c);
 			lines[2].setTaken();
-			return;
+			break;
 		case "E":
 			lines[3].setColor(c);
 			lines[3].setTaken();
-			return;
+			break;
 		case "S":
 			lines[0].setColor(c);
 			lines[0].setTaken();
-			return;
+			break;
 		case "W":
 			lines[1].setColor(c);
 			lines[1].setTaken();
-			return;
+			break;
 
+		}
+
+		if (this.isFullBox()) {
+			// System.out.println("Setting name from UpdateSharedLines");
+			setName(player);
 		}
 	}
 
@@ -254,4 +266,23 @@ public class Box
 			return;
 		}
 	}
+
+	@Override
+	public void sendSerialized(ObjectOutputStream oos) throws IOException {
+		oos.writeInt(this.boxId);
+		oos.writeUTF(this.name);
+		for (Line l : lines) {
+			l.sendSerialized(oos);
+		}
+	}
+
+	@Override
+	public void deserialize(ObjectInputStream ois) throws IOException, ClassNotFoundException {
+		this.boxId = ois.readInt();
+		this.name = ois.readUTF();
+		for (Line l : lines) {
+			l.deserialize(ois);
+		}
+	}
+
 }

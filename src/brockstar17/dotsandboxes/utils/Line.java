@@ -1,11 +1,15 @@
-package brockstar17.dotsandboxes.multiplayer;
+package brockstar17.dotsandboxes.utils;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
-public class Line
+public class Line implements Cerealizer
 {
+
 	private Color color;
 	private Point p1, p2;
 
@@ -107,5 +111,23 @@ public class Line
 
 	public String getOrdinance() {
 		return this.ord;
+	}
+
+	@Override
+	public void sendSerialized(ObjectOutputStream oos) throws IOException {
+		oos.writeObject(color);
+		oos.writeObject(p1);
+		oos.writeObject(p2);
+		oos.writeBoolean(isTaken);
+		oos.writeUTF(ord);
+	}
+
+	@Override
+	public void deserialize(ObjectInputStream ois) throws IOException, ClassNotFoundException {
+		this.color = (Color) ois.readObject();
+		this.p1 = (Point) ois.readObject();
+		this.p2 = (Point) ois.readObject();
+		this.isTaken = ois.readBoolean();
+		this.ord = ois.readUTF();
 	}
 }
